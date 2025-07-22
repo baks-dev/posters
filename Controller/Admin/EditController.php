@@ -53,6 +53,7 @@ final class EditController extends AbstractController
 
         $PosterDTO = new PosterEventDTO();
         $PosterEvent->getDto($PosterDTO);
+        $PosterDTO->setEntity($PosterDTO);
 
         // Форма
         $form = $this->createForm(PosterEventForm::class, $PosterDTO, [
@@ -62,9 +63,13 @@ final class EditController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid() && $form->has('poster_event'))
         {
-            if ($PosterDTO->getIsPublic()) {
+//            dd($PosterDTO->getPublic());
+            if($PosterDTO->getPublic())
+            {
                 $PosterDTO->getProfile()->setValue(null);
-            } else {
+            }
+            else
+            {
                 $PosterDTO->getProfile()->setValue($this->getProfileUid());
             }
 

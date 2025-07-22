@@ -32,7 +32,6 @@ use BaksDev\Posters\Entity\Poster;
 use BaksDev\Posters\UseCase\Admin\NewEdit\PosterEventDTO;
 use BaksDev\Posters\UseCase\Admin\NewEdit\PosterEventForm;
 use BaksDev\Posters\UseCase\Admin\NewEdit\PosterHandler;
-use BaksDev\Users\Profile\UserProfile\Repository\UserProfileTokenStorage\UserProfileTokenStorageInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -60,7 +59,8 @@ final class NewController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid() && $form->has('poster_event'))
         {
-            if (!$PosterDTO->getIsPublic()) {
+            if(false === ($PosterDTO->getPublic()))
+            {
                 $PosterDTO->getProfile()->setValue($this->getProfileUid());
             }
 
@@ -73,7 +73,6 @@ final class NewController extends AbstractController
                 'posters.admin',
                 $handle,
             );
-
 
             return $handle instanceof Poster ? $this->redirectToRoute('posters:admin.index') : $this->redirectToReferer();
         }

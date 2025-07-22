@@ -120,7 +120,7 @@ final class PosterEventForm extends AbstractType
             'required' => true,
         ]);
 
-        $builder->add('isPublic', CheckboxType::class, [
+        $builder->add('public', CheckboxType::class, [
             'required' => false,
             'label' => 'Общий постер',
         ]);

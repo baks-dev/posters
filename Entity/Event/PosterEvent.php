@@ -79,7 +79,6 @@ class PosterEvent extends EntityEvent
     #[ORM\OneToMany(targetEntity: PosterText::class, mappedBy: 'event', cascade: ['all'])]
     private Collection $text;
 
-
     #[Assert\NotBlank]
     #[ORM\Column(type: Types::DATE_IMMUTABLE)]
     private \DateTimeImmutable $start;
@@ -102,9 +101,6 @@ class PosterEvent extends EntityEvent
     #[ORM\OneToOne(targetEntity: PosterProfile::class, mappedBy: 'event', cascade: ['all'])]
     private PosterProfile $profile;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $isPublic;
-
 
     public function __construct()
     {
@@ -125,7 +121,7 @@ class PosterEvent extends EntityEvent
 
     public function __toString(): string
     {
-        return (string)$this->id;
+        return (string) $this->id;
     }
 
     public function getId(): PosterEventUid
@@ -168,12 +164,13 @@ class PosterEvent extends EntityEvent
 
     public function getDto($dto): mixed
     {
-        if (is_string($dto) && class_exists($dto)) {
+        if(is_string($dto) && class_exists($dto))
+        {
             $dto = new $dto();
         }
 
 
-        if ($dto instanceof PosterEventInterface)
+        if($dto instanceof PosterEventInterface)
         {
             return parent::getDto($dto);
         }
@@ -183,7 +180,7 @@ class PosterEvent extends EntityEvent
 
     public function setEntity($dto): mixed
     {
-        if ($dto instanceof PosterEventInterface)
+        if($dto instanceof PosterEventInterface)
         {
 
             return parent::setEntity($dto);

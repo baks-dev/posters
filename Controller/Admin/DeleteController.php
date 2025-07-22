@@ -45,9 +45,9 @@ final class DeleteController extends AbstractController
 {
     #[Route('/admin/poster/delete/{id}', name: 'admin.delete', methods: ['GET', 'POST'])]
     public function delete(
-        Request                  $request,
+        Request $request,
         #[MapEntity] PosterEvent $PosterEvent,
-        DeletePosterHandler      $PosterDeleteHandler,
+        DeletePosterHandler $PosterDeleteHandler,
     ): Response
     {
         $PosterDeleteDTO = new DeletePosterDTO();
@@ -57,7 +57,8 @@ final class DeleteController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && $form->has('delete_poster')) {
+        if($form->isSubmitted() && $form->isValid() && $form->has('delete_poster'))
+        {
             $handle = $PosterDeleteHandler->handle($PosterDeleteDTO);
 
             $this->addFlash

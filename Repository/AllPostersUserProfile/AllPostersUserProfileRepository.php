@@ -95,7 +95,7 @@ final class AllPostersUserProfileRepository implements AllPostersUserProfileInte
         if($this->projectProfile)
         {
             $dbal
-                ->where('project_profile.value IS NULL OR project_profile.value = :project')
+                ->where('(project_profile.value IS NULL OR project_profile.value = :project)')
                 ->setParameter(
                     key: 'project',
                     value: new UserProfileUid($this->projectProfile),
@@ -142,8 +142,6 @@ final class AllPostersUserProfileRepository implements AllPostersUserProfileInte
                 'poster_text.event = poster.event',
             );
 
-        //  /upload/poster_image/63e1e959-f346-7dd4-82ce-d87f2db3847e/image.png
-        //  https://cdn.baks.dev/upload/poster_image/63e1e959-f346-7dd4-82ce-d87f2db3847e/medium.webp
         $dbal
             ->addSelect("CONCAT ('/upload/".$dbal->table(PosterImage::class)."' , '/', poster_image.name) AS poster_image_name")
             ->addSelect('poster_image.ext AS poster_image_ext')

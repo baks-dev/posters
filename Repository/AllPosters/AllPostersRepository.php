@@ -62,23 +62,21 @@ final class AllPostersRepository implements AllPostersInterface
             ->addSelect('poster.event AS event')
             ->from(Poster::class, 'poster');
 
-        $dbal->leftJoin(
-            'poster',
-            PosterProfile::class,
-            'poster_profile',
-            'poster_profile.event = poster.event'
-        );
+        $dbal
+            ->addSelect('poster_profile.value AS profile_uid')
+            ->leftJoin(
+                'poster',
+                PosterProfile::class,
+                'poster_profile',
+                'poster_profile.event = poster.event'
+            );
 
-        $dbal->andWhere('poster_profile.value IS NULL OR poster_profile.value = :profile')
+        $dbal->andWhere('(poster_profile.value IS NULL OR poster_profile.value = :profile)')
             ->setParameter(
                 'profile',
                 $this->UserProfileTokenStorage->getProfile(),
                 UserProfileUid::TYPE
             );
-
-        $dbal
-            ->addSelect('poster_profile.value AS profile_uid');
-
 
         $dbal
             ->addSelect('event.title AS poster_title')
@@ -107,7 +105,6 @@ final class AllPostersRepository implements AllPostersInterface
                 ->setParameter('search', '%'.$this->search->getQuery().'%');
         }
 
-        $dbal->groupBy('poster.id, event.title, event.sort, event.device, poster_profile.value, poster_active');
         $dbal->orderBy('event.sort', 'ASC');
 
         return $this->paginator->fetchAllHydrate($dbal, AllPostersResult::class);

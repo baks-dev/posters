@@ -50,7 +50,7 @@ final class AllPostersUserProfileResult
 
     public function getPosterImageCdn(): bool
     {
-        return $this->poster_image_cdn;
+        return true == $this->poster_image_cdn;
     }
 
     public function getId(): PosterUid

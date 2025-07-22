@@ -65,7 +65,7 @@ final class PosterEventDTO implements PosterEventInterface
     #[Assert\NotBlank]
     private string $device = 'pc';
 
-    private bool $isPublic = false;
+    private bool $public = false;
 
     private PosterProfileDTO $profile;
 
@@ -178,15 +178,20 @@ final class PosterEventDTO implements PosterEventInterface
         return $this->profile;
     }
 
-    public function getIsPublic(): bool
+    public function getPublic(): bool
     {
-        return $this->isPublic;
+        return true === $this->public;
     }
 
-    public function setIsPublic(bool $isPublic): void
+    public function setPublic(bool $isPublic): void
     {
-        $this->isPublic = $isPublic;
+        $this->public = $isPublic;
     }
 
+    public function setEntity(PosterEventInterface $entity): self
+    {
+        $this->public = $this->profile->getValue() === null;
+        return $this;
+    }
 
 }

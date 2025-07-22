@@ -53,12 +53,12 @@ final class AllPostersResult
 
     public function isPosterActive(): bool
     {
-        return $this->poster_active;
+        return true === $this->poster_active;
     }
 
-    public function getProfileUid(): ?string
+    public function getProfileUid(): ?PosterUid
     {
-        return $this->profile_uid;
+        return $this->profile_uid !== null ? new PosterUid($this->profile_uid) : null;
     }
 
     public function getPosterSort(): int
