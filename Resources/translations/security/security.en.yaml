@@ -1,0 +1,26 @@
+# Роль
+ROLE_POSTER:
+  header: 'Posters'
+  name: 'Catalog of posters'
+  desc: 'List of posters'
+
+# Правила
+ROLE_POSTER_INDEX:
+  name: 'View'
+  desc: ''
+
+
+ROLE_POSTER_NEW:
+  name: 'add'
+  desc: ''
+
+ROLE_POSTER_EDIT:
+  name: 'Edit'
+  desc: ''
+
+ROLE_POSTER_DELETE:
+  name: 'Delete'
+  desc: ''
+
+
+
