@@ -1,0 +1,16 @@
+{% trans_default_domain 'admin.posters' %}
+
+<main class="main d-print-none container px-4">
+    <section class="mb-5">
+
+        <div class="mt-3 d-flex justify-content-between">
+            {{ include(_self|replace({ "content.html.twig": "_breadcrumb.html.twig" })) }}
+        </div>
+
+        <h1 class="h4 text-uppercase fw-bolder mb-0">{{ 'admin.page.new'|trans }}</h1>
+
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">

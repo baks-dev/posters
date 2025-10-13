@@ -1,0 +1,13 @@
+{% trans_default_domain("posters.admin") %}
+
+
+{# ---- ШАБЛОН ------------------------------------------------------------ #}
+{% extends Template('base.html.twig') %}
+
+
+{# ---- КОНТЕНТ-БЛОК ------------------------------------------------------------ #}
+{% block content %}
+    {{ include(_self|replace({ "template.html.twig": baks_settings.device~"/content.html.twig" })) }}
+{% endblock %}
+
+

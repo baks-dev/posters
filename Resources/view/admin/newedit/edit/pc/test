@@ -1,0 +1,169 @@
+{% trans_default_domain 'admin.posters' %}
+
+<main class="main d-print-none container px-4">
+    <section class="mb-5">
+
+        <div class="mt-3 d-flex justify-content-between">
+            {{ include(_self|replace({ "content.html.twig": "_breadcrumb.html.twig" })) }}
+        </div>
+
+        <h1 class="h4 text-uppercase fw-bolder mb-0">{{ 'admin.page.edit'|trans }}</h1>
+
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            {{ form_start(form) }}
+                            <div class="d-flex gap-3 mb-3">
+
+                                <div class="flex-fill">
+                                    {{ form_label(form.title, 'admin.form.label.title'|trans) }}
+                                    {{ form_widget(form.title, { attr: { class: 'form-control' } }) }}
+                                    {{ form_errors(form.title) }}
+                                </div>
+                                <div class="flex-fill">
+                                    {{ form_label(form.sort, 'admin.form.label.sort'|trans) }}
+                                    {{ form_widget(form.sort, { attr: { class: 'form-control' } }) }}
+                                    {{ form_errors(form.sort) }}
+                                </div>
+                            </div>
+
+                            {% set image_path = '/assets/img/blank.svg' %}
+
+                            {% if form.image.vars.data.ext is defined and form.image.vars.data.ext is not null %}
+                                {% set img_host = form.image.vars.data.cdn == true ? CDN_HOST : '' %}
+                                {% set img_table = '/upload/poster_image/' %}
+                                {% set img_dir = form.image.vars.data.name %}
+                                {% set img_file = (img_host is empty ? '/image.' : '/small.') ~ form.image.vars.data.ext %}
+                                {% set image_path = img_host ~ img_table ~ img_dir ~ img_file %}
+                            {% endif %}
+
+                            <label class="d-block bg-light border rounded bg-contain lazy position-relative image-input"
+                                   style="width: 100%; height: 200px; background-repeat: no-repeat; background-position: center; background-size: contain; cursor: pointer"
+                                   data-bg="{{ image_path }}">
+                                {{ form_row(form.image.file, { 'attr': { 'class': 'd-none' } }) }}
+                            </label>
+
+                            <div class="text-muted small pb-3">
+                                <small>{{ 'admin.form.label.image'|trans }}</small>
+                            </div>
+
+
+                            {# Прототип для динамического добавления #}
+                            {% set prototype %}
+                                <div class="border rounded p-3 mb-3 bg-light">
+
+                                    <div class="d-flex gap-3 mb-3">
+                                        <div class="flex-fill">
+                                            {{ form_label(form.text.vars.prototype.text, 'admin.form.text.item.text'|trans) }}
+                                            {{ form_widget(form.text.vars.prototype.text, { attr: { class: 'form-control' } }) }}
+                                            {{ form_errors(form.text.vars.prototype.text) }}
+                                        </div>
+                                        <div class="flex-fill">
+                                            {{ form_label(form.text.vars.prototype.css, 'admin.form.text.item.css'|trans) }}
+                                            {{ form_widget(form.text.vars.prototype.css, { attr: { class: 'form-control' } }) }}
+                                            {{ form_errors(form.text.vars.prototype.css) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">{{ 'admin.form.text.item.position'|trans }}</label>
+                                        <div class="row row-cols-3 g-2">
+                                            {% for choice in form.text.vars.prototype.position.vars.choices %}
+                                                <div class="col">
+                                                    <input type="radio"
+                                                           class="btn-check"
+                                                           name="__name__position"
+                                                           id="__name__position_{{ loop.index }}"
+                                                           value="{{ choice.value }}"
+                                                           autocomplete="off">
+                                                    <label class="btn btn-outline-primary w-100 text-center"
+                                                           for="__name__position_{{ loop.index }}">
+                                                        {{ choice.label }}
+                                                    </label>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endset %}
+
+
+                            <div data-collection-holder data-prototype="{{ prototype|e('html_attr') }}">
+                                {% for item in form.text %}
+                                    <div class="border rounded p-3 mb-3 bg-light">
+                                        <div class="d-flex gap-3 mb-3">
+                                            <div class="flex-fill">
+                                                {{ form_label(item.text, 'admin.form.text.item.text'|trans) }}
+                                                {{ form_widget(item.text, { attr: { class: 'form-control' } }) }}
+                                                {{ form_errors(item.text) }}
+                                            </div>
+                                            <div class="flex-fill">
+                                                {{ form_label(item.css, 'admin.form.text.item.css'|trans) }}
+                                                {{ form_widget(item.css, { attr: { class: 'form-control' } }) }}
+                                                {{ form_errors(item.css) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">{{ 'admin.form.text.item.position'|trans }}</label>
+                                            <div class="row row-cols-3 g-2">
+                                                {% for choice in item.position.vars.choices %}
+                                                    <div class="col">
+                                                        <input type="radio"
+                                                               class="btn-check"
+                                                               name="{{ item.position.vars.full_name }}"
+                                                               id="{{ item.position.vars.id ~ '_' ~ loop.index }}"
+                                                               value="{{ choice.value }}"
+                                                               {% if choice.value == item.position.vars.value %}checked{% endif %}
+                                                               autocomplete="off">
+                                                        <label class="btn btn-outline-primary w-100 text-center"
+                                                               for="{{ item.position.vars.id ~ '_' ~ loop.index }}">
+                                                            {{ choice.label }}
+                                                        </label>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-sm btn-danger remove-text mt-2">
+                                            {{ 'admin.btn.remove_text'|trans }}
+                                        </button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="d-flex justify-content-start mb-3">
+                                <button type="button"
+                                        class="btn btn-outline-primary mt-auto"
+                                        id="add-text-btn">
+                                    {{ 'admin.btn.add_text'|trans }}
+                                </button>
+                            </div>
+                            <div class="d-flex gap-3 mb-3">
+                                <div class="flex-fill">
+                                    {{ form_row(form.start, { label: 'admin.form.label.start'|trans }) }}
+                                </div>
+                                <div class="flex-fill">
+                                    {{ form_row(form.endedAt, { label: 'admin.form.label.endedAt'|trans }) }}
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-start mt-4">
+                                <button type="submit" class="btn btn-outline-primary">
+                                    {{ 'admin.btn.save'|trans }}
+                                </button>
+                            </div>
+                            {% for child in form %}
+                                {% if child.vars is defined and child.vars.block_prefixes is iterable and 'hidden' in child.vars.block_prefixes %}
+                                    {{ form_widget(child) }}
+                                {% endif %}
+                            {% endfor %}
+                            {{ form_end(form, { render_rest: false }) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

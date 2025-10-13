@@ -1,0 +1,62 @@
+{# @var poster \BaksDev\Posters\Repository\AllPostersUserProfile\AllPostersUserProfileResult #}
+
+<div class="container mt-3">
+    <div
+            id="carouselExampleIndicators"
+            class="carousel slide carousel-dark carousel-fade py-3"
+            data-bs-ride="true"
+    >
+        <div class="carousel-inner rounded-5">
+            {% for poster in posters %}
+                <div class="carousel-item col-12{% if loop.first %} active{% endif %}">
+                    <div class="position-relative overflow-hidden">
+                        {# Фон #}
+                        <img data-src='{{ cdn_image_path(poster.posterImageName, poster.posterImageExt, poster.posterImageCdn) }}'
+                             src="/assets/img/empty.png"
+                             class="card-img lazy" alt="...">
+
+                        {# Текстовые блоки #}
+                        {% set positionClass = {
+                            'top-left': 'top-0 start-0',
+                            'top-center': 'top-0 start-50 translate-middle-x',
+                            'top-right': 'top-0 end-0',
+                            'middle-left': 'top-50 start-0 translate-middle-y',
+                            'middle-center': 'top-50 start-50 translate-middle',
+                            'middle-right': 'top-50 end-0 translate-middle-y',
+                            'bottom-left': 'bottom-0 start-0',
+                            'bottom-center': 'bottom-0 start-50 translate-middle-x',
+                            'bottom-right': 'bottom-0 end-0'
+                        } %}
+                        {% for block in poster.posterText %}
+                            {% if block.texts and block.positions %}
+                                <div class="position-absolute {{ positionClass[block.positions] }} {{ block.css }}">
+                                    {{ block.texts|raw }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center text-muted">
+                    Постеров не найдено.
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev justify-content-start" type="button" title="Предыдущий слайд"
+                data-bs-target="#carouselExampleIndicators" data-bs-slide="prev"><span class="ps-3"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000"
+                        class="bi bi-caret-left-fill" viewBox="0 0 16 16"><path
+                            d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"></path></svg></span><span
+                    class="visually-hidden">Previous</span></button>
+        <button class="carousel-control-next justify-content-end" type="button" title="Следующий слайд"
+                data-bs-target="#carouselExampleIndicators" data-bs-slide="next"><span class="pe-3"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000"
+                        class="bi bi-caret-right-fill" viewBox="0 0 16 16"><path
+                            d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"></path></svg></span><span
+                    class="visually-hidden">Next</span></button>
+    </div>
+</div>
+
+
