@@ -25,7 +25,6 @@ declare(strict_types=1);
 
 namespace BaksDev\Posters\Controller\Public;
 
-
 use BaksDev\Core\Controller\AbstractController;
 use BaksDev\Posters\Repository\AllPostersUserProfile\AllPostersUserProfileInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,7 +42,9 @@ final class IndexController extends AbstractController
         int $page = 0,
     ): Response
     {
-        $posters = $allPosters->findAll();
+
+        $device = $request->headers->get('x-device');
+        $posters = $allPosters->forDevice($device)->findAll();
 
         return $this->render(
             [
