@@ -29,16 +29,19 @@ use BaksDev\Posters\Security\VoterDelete;
 use BaksDev\Posters\Type\Event\PosterEventUid;
 use BaksDev\Posters\UseCase\Admin\NewEdit\Tests\NewPosterTest;
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group posters
- * @depends BaksDev\Posters\UseCase\Admin\NewEdit\Tests\NewPosterTest::testUseCase
- */
+
+#[When(env: 'test')]
+#[Group('posters')]
 final class DeleteControllerTest extends WebTestCase
 {
-    private const URL = '/admin/poster/delete/%s';
+    private const string URL = '/admin/poster/delete/%s';
 
+    #[DependsOnClass(NewPosterTest::class)]
     public function testRolePosterDelete(): void
     {
         self::ensureKernelShutdown();

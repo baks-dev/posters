@@ -35,6 +35,7 @@ use BaksDev\Posters\UseCase\Admin\NewEdit\PosterHandler;
 use BaksDev\Posters\UseCase\Admin\NewEdit\Text\PosterTextDTO;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
@@ -46,6 +47,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * @group posters
  */
 #[When(env: 'test')]
+#[Group('posters')]
 class NewPosterTest extends KernelTestCase
 {
     public static function setUpBeforeClass(): void

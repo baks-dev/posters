@@ -29,19 +29,18 @@ use BaksDev\Posters\Security\VoterEdit;
 use BaksDev\Posters\Type\Event\PosterEventUid;
 use BaksDev\Posters\UseCase\Admin\NewEdit\Tests\NewPosterTest;
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group posters
- * @depends BaksDev\Posters\UseCase\Admin\NewEdit\Tests\NewPosterTest::testUseCase
- */
 #[When(env: 'test')]
+#[Group('posters')]
 final class EditControllerTest extends WebTestCase
 {
-    private const URL = '/admin/poster/edit/%s';
+    private const string URL = '/admin/poster/edit/%s';
 
-
+    #[DependsOnClass(NewPosterTest::class)]
     public function testRolePosterEdit(): void
     {
         self::ensureKernelShutdown();

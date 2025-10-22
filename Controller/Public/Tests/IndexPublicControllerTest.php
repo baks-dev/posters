@@ -26,14 +26,16 @@ declare(strict_types=1);
 namespace BaksDev\Posters\Controller\Public\Tests;
 
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
 /** @group posters-public */
 #[When(env: 'test')]
+#[Group('posters')]
 final class IndexPublicControllerTest extends WebTestCase
 {
-    private const URL = '/posters';
+    private const string URL = '/posters';
 
     public function testAuthenticatedUserCanAccess(): void
     {

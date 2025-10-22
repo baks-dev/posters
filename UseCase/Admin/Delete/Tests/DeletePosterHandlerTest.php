@@ -32,8 +32,11 @@ use BaksDev\Posters\Repository\PosterCurrentEvent\CurrentPosterEventInterface;
 use BaksDev\Posters\Type\Event\PosterEventUid;
 use BaksDev\Posters\UseCase\Admin\Delete\DeletePosterDTO;
 use BaksDev\Posters\UseCase\Admin\Delete\DeletePosterHandler;
+use BaksDev\Posters\UseCase\Admin\NewEdit\Tests\EditPosterTest;
 use BaksDev\Posters\UseCase\Admin\NewEdit\Tests\NewPosterTest;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -43,8 +46,10 @@ use Symfony\Component\DependencyInjection\Attribute\When;
  * @depends BaksDev\Posters\UseCase\Admin\NewEdit\Tests\EditPosterTest::class
  */
 #[When(env: 'test')]
+#[Group('posters')]
 class DeletePosterHandlerTest extends KernelTestCase
 {
+    #[DependsOnClass(EditPosterTest::class)]
     public function testUseCase(): void
     {
         /** @var CurrentPosterEventInterface $PosterCurrentEvent */

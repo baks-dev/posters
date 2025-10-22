@@ -34,6 +34,8 @@ use BaksDev\Posters\UseCase\Admin\NewEdit\PosterEventDTO;
 use BaksDev\Posters\UseCase\Admin\NewEdit\PosterHandler;
 use BaksDev\Posters\UseCase\Admin\NewEdit\Text\PosterTextDTO;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Framework\Attributes\DependsOnClass;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -43,8 +45,10 @@ use Symfony\Component\DependencyInjection\Attribute\When;
  * @depends BaksDev\Posters\UseCase\Admin\NewEdit\Tests\NewPosterTest::class
  */
 #[When(env: 'test')]
+#[Group('posters')]
 class EditPosterTest extends KernelTestCase
 {
+    #[DependsOnClass(NewPosterTest::class)]
     public function testUseCase(): void
     {
         $PosterCurrentEvent = self::getContainer()->get(CurrentPosterEventInterface::class);

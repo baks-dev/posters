@@ -30,6 +30,7 @@ use BaksDev\Posters\Repository\AllPostersUserProfile\AllPostersUserProfileInterf
 use BaksDev\Posters\Repository\AllPostersUserProfile\AllPostersUserProfileResult;
 use BaksDev\Posters\Type\Event\PosterEventUid;
 use BaksDev\Posters\Type\Id\PosterUid;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -37,6 +38,7 @@ use Symfony\Component\DependencyInjection\Attribute\When;
  * @group posters-userprofile
  */
 #[When(env: 'test')]
+#[Group('posters')]
 final class AllPostersUserProfileRepositoryTest extends KernelTestCase
 {
     public function testFindAllReturnsGeneratorWhenDeviceSet(): void

@@ -27,11 +27,13 @@ namespace BaksDev\Posters\Controller\Admin\Tests;
 
 use BaksDev\Posters\Security\VoterIndex;
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
 /** @group posters */
 #[When(env: 'test')]
+#[Group('posters')]
 final class IndexControllerTest extends WebTestCase
 {
     private const URL = '/admin/posters';

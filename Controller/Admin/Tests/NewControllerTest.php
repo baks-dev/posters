@@ -27,6 +27,7 @@ namespace BaksDev\Posters\Controller\Admin\Tests;
 
 use BaksDev\Posters\Security\VoterNew;
 use BaksDev\Users\User\Tests\TestUserAccount;
+use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
@@ -34,14 +35,15 @@ use Symfony\Component\DependencyInjection\Attribute\When;
  * @group posters
  */
 #[When(env: 'test')]
+#[Group('posters')]
 final class NewControllerTest extends WebTestCase
 {
-    private const URL = '/admin/poster/new';
+    private const string URL = '/admin/poster/new';
 
     public function testRolePosterNewSucceeds(): void
     {
         self::ensureKernelShutdown();
-        $client = static::createClient();
+        $client = self::createClient();
 
         foreach(TestUserAccount::getDevice() as $device)
         {
