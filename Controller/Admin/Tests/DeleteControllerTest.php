@@ -34,7 +34,6 @@ use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
-
 #[When(env: 'test')]
 #[Group('posters')]
 final class DeleteControllerTest extends WebTestCase

@@ -42,10 +42,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 
-
-/**
- * @group posters
- */
 #[When(env: 'test')]
 #[Group('posters')]
 class NewPosterTest extends KernelTestCase

@@ -30,7 +30,6 @@ use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
-/** @group posters-public */
 #[When(env: 'test')]
 #[Group('posters')]
 final class IndexPublicControllerTest extends WebTestCase

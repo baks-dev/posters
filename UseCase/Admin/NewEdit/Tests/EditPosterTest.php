@@ -39,11 +39,6 @@ use PHPUnit\Framework\Attributes\Group;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Attribute\When;
 
-/**
- * @group posters
- *
- * @depends BaksDev\Posters\UseCase\Admin\NewEdit\Tests\NewPosterTest::class
- */
 #[When(env: 'test')]
 #[Group('posters')]
 class EditPosterTest extends KernelTestCase
