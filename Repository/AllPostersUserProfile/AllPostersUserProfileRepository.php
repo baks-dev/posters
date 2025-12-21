@@ -115,8 +115,9 @@ final class AllPostersUserProfileRepository implements AllPostersUserProfileInte
                 '
                     event.id = poster.event AND
                     event.device = :device AND
-                    event.start <= CURRENT_TIMESTAMP AND
-                    (event.ended IS NULL OR event.ended >= CURRENT_TIMESTAMP)
+                    
+                    DATE(event.start) <= CURRENT_DATE AND
+                    (event.ended IS NULL OR DATE(event.ended) >= CURRENT_DATE)
                  ',
             )
             ->setParameter(
