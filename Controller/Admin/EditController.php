@@ -63,7 +63,6 @@ final class EditController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid() && $form->has('poster_event'))
         {
-            //            dd($PosterDTO->getPublic());
             if($PosterDTO->getPublic())
             {
                 $PosterDTO->getProfile()->setValue(null);
