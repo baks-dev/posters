@@ -88,7 +88,7 @@ final class PosterEventForm extends AbstractType
             'widget' => 'single_text',
             'html5' => false,
             'attr' => ['class' => 'js-datepicker'],
-            'required' => true,
+            'required' => false,
             'format' => 'dd.MM.yyyy',
             'input' => 'datetime_immutable',
         ]);
