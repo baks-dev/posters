@@ -44,15 +44,7 @@ final class PosterEventForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('image',
-            PosterImageForm::class,
-            [
-                'required' => true,
-                'constraints' => [
-                    new Valid(),
-                ],
-            ],
-        );
+        $builder->add('image', PosterImageForm::class, ['required' => true]);
 
         $builder->add('text',
             CollectionType::class,
@@ -65,9 +57,6 @@ final class PosterEventForm extends AbstractType
                 'allow_delete' => true,
                 'prototype' => true,
                 'error_bubbling' => false,
-                'constraints' => [
-                    new Valid(),
-                ],
             ],
         );
 

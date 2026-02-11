@@ -47,13 +47,15 @@ final class PosterEventDTO implements PosterEventInterface
     #[Assert\Uuid]
     private ?PosterEventUid $id = null;
 
+    #[Assert\Valid]
     private ArrayCollection $text;
 
+    #[Assert\Valid]
     private PosterImageDTO $image;
 
-    private ?DateTimeImmutable $start;
+    private DateTimeImmutable $start;
 
-    private ?DateTimeImmutable $ended;
+    private ?DateTimeImmutable $ended = null;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 100)]
@@ -68,6 +70,7 @@ final class PosterEventDTO implements PosterEventInterface
 
     private bool $public = false;
 
+    #[Assert\Valid]
     private PosterProfileDTO $profile;
 
 
@@ -112,7 +115,7 @@ final class PosterEventDTO implements PosterEventInterface
 
     }
 
-    public function getStart(): ?DateTimeImmutable
+    public function getStart(): DateTimeImmutable
     {
         return $this->start;
     }

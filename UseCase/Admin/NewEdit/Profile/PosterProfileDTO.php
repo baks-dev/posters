@@ -31,6 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class PosterProfileDTO implements PosterProfileInterface
 {
+    #[Assert\Uuid]
     private ?UserProfileUid $value = null;
 
     public function getValue(): ?UserProfileUid
