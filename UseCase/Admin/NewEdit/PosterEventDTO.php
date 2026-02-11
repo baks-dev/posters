@@ -60,7 +60,7 @@ final class PosterEventDTO implements PosterEventInterface
     private string $title;
 
     #[Assert\NotBlank]
-    private int $sort;
+    private int $sort = 100;
 
     #[Assert\Choice(['pc', 'tablet', 'mobile'])]
     #[Assert\NotBlank]
@@ -84,6 +84,9 @@ final class PosterEventDTO implements PosterEventInterface
         $this->image = new PosterImageDTO();
         $this->text = new ArrayCollection();
         $this->profile = new PosterProfileDTO();
+
+        // По умолчанию - текущая дата
+        $this->start = new DateTimeImmutable();
     }
 
     public function getText(): ArrayCollection
