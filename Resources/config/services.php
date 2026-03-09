@@ -25,7 +25,6 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use BaksDev\Posters\BaksDevPostersBundle;
-use BaksDev\Posters\Controller\Admin\EditController;
 
 return static function(ContainerConfigurator $configurator): void {
 
@@ -35,18 +34,17 @@ return static function(ContainerConfigurator $configurator): void {
         ->autowire()
         ->autoconfigure();
 
-    $services
-        ->set(EditController::class)
-        ->autowire()
-        ->autoconfigure()
-        ->public();
+    //    $services
+    //        ->set(EditController::class)
+    //        ->autowire()
+    //        ->autoconfigure()
+    //        ; //->public();
 
 
     $NAMESPACE = BaksDevPostersBundle::NAMESPACE;
     $PATH = BaksDevPostersBundle::PATH;
 
     $services->load($NAMESPACE, $PATH)
-        ->public()
         ->exclude([
             $PATH.'{Entity,Resources,Type}',
             $PATH.'**'.DIRECTORY_SEPARATOR.'*Message.php',
