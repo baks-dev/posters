@@ -27,7 +27,7 @@ use BaksDev\Posters\Entity\Event\PosterEvent;
 use BaksDev\Posters\Type\Event\PosterEventUid;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 
-// #[Autoconfigure(public: true)]
+#[Autoconfigure(public: true)]
 interface CurrentPosterEventInterface
 {
     public function forEvent(PosterEvent|PosterEventUid|string $event): self;
