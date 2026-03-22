@@ -73,15 +73,6 @@ final class PosterEventDTO implements PosterEventInterface
     #[Assert\Valid]
     private PosterProfileDTO $profile;
 
-
-    /**
-     * Идентификатор события
-     */
-    public function getEvent(): ?PosterEventUid
-    {
-        return $this->id;
-    }
-
     public function __construct()
     {
         $this->image = new PosterImageDTO();
@@ -90,6 +81,14 @@ final class PosterEventDTO implements PosterEventInterface
 
         // По умолчанию - текущая дата
         $this->start = new DateTimeImmutable();
+    }
+
+    /**
+     * Идентификатор события
+     */
+    public function getEvent(): ?PosterEventUid
+    {
+        return $this->id;
     }
 
     public function getText(): ArrayCollection

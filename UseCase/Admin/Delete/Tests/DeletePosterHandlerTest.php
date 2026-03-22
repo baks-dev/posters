@@ -44,6 +44,11 @@ use Symfony\Component\DependencyInjection\Attribute\When;
 #[Group('posters')]
 class DeletePosterHandlerTest extends KernelTestCase
 {
+    public static function tearDownAfterClass(): void
+    {
+        NewPosterTest::setUpBeforeClass();
+    }
+
     #[DependsOnClass(EditPosterTest::class)]
     public function testUseCase(): void
     {
@@ -63,11 +68,6 @@ class DeletePosterHandlerTest extends KernelTestCase
         $handle = $PosterDeleteHandler->handle($PosterDeleteDTO);
 
         self::assertTrue(($handle instanceof Poster), $handle.': Ошибка Poster');
-    }
-
-    public static function tearDownAfterClass(): void
-    {
-        NewPosterTest::setUpBeforeClass();
     }
 }
 

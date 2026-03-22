@@ -42,12 +42,12 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 final class AllPostersUserProfileRepository implements AllPostersUserProfileInterface
 {
+    private Device $device;
+
     public function __construct(
         private readonly DBALQueryBuilder $DBALQueryBuilder,
         #[Autowire(env: 'PROJECT_PROFILE')] private readonly ?string $projectProfile = null,
     ) {}
-
-    private Device $device;
 
     public function forDevice(Device|string $device): self
     {

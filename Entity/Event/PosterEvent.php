@@ -125,9 +125,9 @@ class PosterEvent extends EntityEvent
         return (string) $this->id;
     }
 
-    public function getId(): PosterEventUid
+    public function getMain(): ?PosterUid
     {
-        return $this->id;
+        return $this->main;
     }
 
     /**
@@ -138,9 +138,9 @@ class PosterEvent extends EntityEvent
         $this->main = $main instanceof Poster ? $main->getId() : $main;
     }
 
-    public function getMain(): ?PosterUid
+    public function getId(): PosterEventUid
     {
-        return $this->main;
+        return $this->id;
     }
 
     public function getPosterImage(): PosterImage

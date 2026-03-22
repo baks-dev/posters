@@ -67,14 +67,6 @@ class Poster
     }
 
     /**
-     * Идентификатор
-     */
-    public function getId(): PosterUid
-    {
-        return $this->id;
-    }
-
-    /**
      * Идентификатор события
      */
     public function getEvent(): PosterEventUid
@@ -85,5 +77,13 @@ class Poster
     public function setEvent(PosterEventUid|PosterEvent $event): void
     {
         $this->event = $event instanceof PosterEvent ? $event->getId() : $event;
+    }
+
+    /**
+     * Идентификатор
+     */
+    public function getId(): PosterUid
+    {
+        return $this->id;
     }
 }

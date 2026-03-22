@@ -56,45 +56,54 @@ document.addEventListener("click", function(e)
 let $blockImage = document.getElementById("image_wrapper");
 
 /** Предотвратить стандартное (по умолчанию) поведение для событий: 'dragenter', 'dragover', 'dragleave', 'drop' */
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
-    $blockImage.addEventListener(event, function(e) {
+["dragenter", "dragover", "dragleave", "drop"].forEach(event =>
+{
+    $blockImage.addEventListener(event, function(e)
+        {
             e.preventDefault();
             e.stopPropagation();
         },
-        false
+        false,
     );
 });
 
 /** Подсветить photo_collection при перетаскивании при событиях 'dragenter', 'dragover' */
-['dragenter', 'dragover'].forEach(event => {
-    $blockImage.addEventListener(event, () => {
-        $blockImage.classList.add('shadow');
+["dragenter", "dragover"].forEach(event =>
+{
+    $blockImage.addEventListener(event, () =>
+    {
+        $blockImage.classList.add("shadow");
     }, false);
 });
 
 /** Удалить класс подсветки при событиях 'dragleave', 'drop' */
-['dragleave', 'drop'].forEach(event => {
-    $blockImage.addEventListener(event, () => {
-        $blockImage.classList.remove('shadow');
+["dragleave", "drop"].forEach(event =>
+{
+    $blockImage.addEventListener(event, () =>
+    {
+        $blockImage.classList.remove("shadow");
     }, false);
 });
 
 /** Обработать событие drop */
-$blockImage.addEventListener('drop', function (e) {
+$blockImage.addEventListener("drop", function(e)
+    {
         const dt = e.dataTransfer;
         const files = dt.files;
 
         /* Обработать файлы полученные при "перетягивании" */
         ([...files]).forEach(previewAndAttachFile);
 
-    }
+    },
 );
 
 /** Отобразить и загрузить в file input */
 
-function previewAndAttachFile(file) {
+function previewAndAttachFile(file)
+{
     /* Проверить это файл является изображением */
-    if (!file.type.startsWith('image/')) {
+    if(!file.type.startsWith("image/"))
+    {
         return;
     }
 
@@ -102,13 +111,14 @@ function previewAndAttachFile(file) {
     reader.readAsDataURL(file);
 
     /* После того как файл "загрузился" в объект FileReader */
-    reader.onloadend = function() {
+    reader.onloadend = function()
+    {
 
         /* Отобразить полученный file в качестве background-image для label */
-        $blockImage.querySelector('label').style.backgroundImage = `url('${reader.result}')`;
+        $blockImage.querySelector("label").style.backgroundImage = `url('${reader.result}')`;
 
         /* Получить соотв-щий input type=file */
-        const fileInput = $blockImage.querySelector('input[type="file"]');
+        const fileInput = $blockImage.querySelector("input[type=\"file\"]");
 
 
         /** Загрузить файл в input type=file */
@@ -122,4 +132,5 @@ function previewAndAttachFile(file) {
 
     };
 }
+
 /** END DragNDrop */

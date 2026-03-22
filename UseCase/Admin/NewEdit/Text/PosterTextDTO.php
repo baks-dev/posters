@@ -45,15 +45,20 @@ class PosterTextDTO implements PosterTextInterface
     #[Assert\Length(max: 255)]
     private string $css;
 
+    public function getPosition(): string
+    {
+        return $this->position;
+    }
+
     public function setPosition(string $position): self
     {
         $this->position = $position;
         return $this;
     }
 
-    public function getPosition(): string
+    public function getText(): string
     {
-        return $this->position;
+        return $this->text;
     }
 
     public function setText(string $text): self
@@ -62,20 +67,14 @@ class PosterTextDTO implements PosterTextInterface
         return $this;
     }
 
-
-    public function getText(): string
+    public function getCss(): string
     {
-        return $this->text;
+        return $this->css;
     }
 
     public function setCss(string $css): self
     {
         $this->css = $css;
         return $this;
-    }
-
-    public function getCss(): string
-    {
-        return $this->css;
     }
 }
